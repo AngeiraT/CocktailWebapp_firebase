@@ -1,0 +1,466 @@
+/* -- google fonts -- */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+/*-- global -- */
+body {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+    font-family: 'Montserrat', sans-serif;
+    overflow-x: hidden;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+}
+
+p {
+    font-size: 1.8em;
+    font-weight: 400;
+    line-height: 24px;
+    color: #4C7A2C;
+    margin: 0;
+    
+}
+/* -- button css -- */
+
+.main-btn {
+    display: inline-block;
+    padding: 0 25px;
+    font-size: 25px;
+    font-weight: 500;
+    text-align: center;
+    line-height: 55px;
+    border: 2px solid #4C7A2C;
+    border-radius: 5px;
+    background-color: #4C7A2C;
+    color: #fff;
+}
+
+.main-btn:hover {
+    background-color: #daebbd;
+    color: #fff;
+    border-color: transparent;
+}
+
+/* -- navbar css -- */
+
+.navbar-brand .drink-up-logo {
+    max-width: 225px;
+    border-radius: 50%;
+}
+
+.navbar-area {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+.navbar {
+    position: relative;
+    padding: 20px 0;
+}
+
+.navbar-nav .nav-item {
+    position: relative;
+    margin-left: 40px;
+}
+
+.navbar-nav .nav-item .nav-link {
+    position: relative;
+    padding: 10px 0;
+    font-size: 30px;
+    font-weight: 500;
+    color: #4C7A2C;
+}
+
+.navbar-nav .nav-item .nav-link:hover {
+    color: #FC917C;
+}
+
+.navbar-nav .nav-item .nav-link::before {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    width: 8px;
+    height: 8px;
+    bottom: 0;
+    left: 50%;
+    background-color: #4C7A2C;
+    opacity: 0;
+    transition: all .3 ease-out 0s;
+}
+
+.navbar-nav .nav-item .nav-link.active::before,
+.navbar-nav .nav-item .nav-link:hover::before {
+    opacity: 1;
+
+}
+
+/* --- home css --- */
+
+.header-hero {
+    position: relative;
+    height: 800px;
+    background-position: bottom center;
+    background-color: #F8C6B3;
+}
+
+.header-hero-content {
+    position: relative;
+    box-shadow: 0 2px 20px -5px rgba(0,0,0,0.9);
+    background: #B0C985;
+    padding-top:7%;
+    padding-left: 10%;
+    padding-right: 10%;
+    padding-bottom: 7%;
+    border-radius: 8px;
+}
+
+.header-hero-content .header-title {
+    font-size: 50px;
+    color: #fff;
+}
+
+.header-hero-content .text {
+    margin-top: 50px;
+    letter-spacing: 4px;
+    line-height: 30px;
+    text-align: justify;
+    color: #fff;
+}
+
+.header-hero-content ul {
+    margin-top: 30px;
+    list-style: none;
+}
+
+.header-image {
+    position: relative;
+    display: flex;
+    max-width: 100%;
+    height: 800px;
+    padding: 90px 50px 80px 20px;
+}
+
+/* --- responsiveness for header-image --- */
+
+@media screen and (max-width:650px){
+    .header-hero-content {
+        background-size: 100%;
+        padding: 100px 40px;
+        flex-direction: column;
+        align-items: center;
+        display: flex;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 100%;
+        padding: 24px;
+    }
+
+    .header-image {
+        padding: 24px;
+        width: 100%;
+        max-width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+/* contact form */
+
+.form-area {
+    padding-top: 3%;
+    padding-bottom: 5%;
+    background-color: #F8C6B3;
+}
+
+.row.single-form {
+    box-shadow: 0 2px 20px -5px rgba(0,0,0,0.9);
+    background: #fff;
+    border-radius: 8px;
+}
+
+.left {
+    background: #B0C985;
+    padding: 250px 93px;
+}
+
+.left h2 {
+    font-family: 'Montserrat', sans-serif;
+    color: #4C7A2C;
+    font-weight: 700;
+    font-size: 48px;
+}
+
+.left h2 span {
+    font-weight: 100;
+}
+
+.right {
+    padding: 70px 100px;
+    position: relative;
+}
+
+.right i {
+    position: absolute;
+    font-size: 80px;
+    left: -27px;
+    top: 50%;
+    color: #fff;
+}
+
+.form-control {
+    border: 2px solid #4C7A2C;
+}
+
+.right button {
+    border: none;
+    border-radius: 5px;
+    background: #4C7A2C;
+    width: 180px;
+    padding: 15px 0;
+    display: inline-block;
+    font-size: 18px;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+.right button:hover {
+    background: #B0C985;
+}
+
+/* --- responsivness form --- */
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .right i {
+        top: -52px;
+        transform: rotate(90deg);
+        left: 50%;
+    }
+}
+
+
+@media (max-width: 767px) {
+    .left {
+        padding: 90px 15px;
+        text-align: center;
+    }
+    .left h2 {
+        font-size: 25px;
+    }
+    .right {
+        padding: 25px;
+    }
+    .right i {
+        top: -52px;
+        transform: rotate(90deg);
+        left: 45%;
+    }
+    .right button {
+        width: 150px;
+        padding: 12px 0;
+    }
+}
+
+/* --- about page --- */
+
+.about-section {
+    background: url(/public/images/about-us-cocktail.jpg) no-repeat left;
+    padding: 100px 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+    overflow: hidden;
+    background-color: #B0C985;
+    background-size: 55%;
+    height: auto;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.inner-container {
+    width: 55%;
+    float: right;
+    padding: 150px;
+    background-color: #fff;
+    border-radius: 5px;
+}
+
+.inner-container h1 {
+    margin-bottom: 30px;
+    font-size: 30px;
+    font-weight: 900;
+}
+
+.text-p {
+    font-size: 23px;
+    line-height: 30px;
+    text-align: justify;
+    margin-bottom: 25px;
+}
+
+/* --- responsive part of the about page --- */
+
+@media screen and (max-width:1000px){
+    .about-section {
+        background-size: 100%;
+        padding: 100px 40px;
+    }
+
+    .inner-container {
+        width: 100%;
+    }
+}
+
+
+/* --- spirits section --- */
+
+.spirit-section {
+    background-color: #F8C6B3;
+}
+
+.bottle-img {
+    width: 100%;
+    height: 180px;
+    margin: 0 10px 30px 20px;
+}
+
+.inner-container-spirits {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 10px;
+    margin-top: 150px;
+    margin-bottom: 180px;
+}
+
+.spirit-text {
+    margin-top: 50px;
+    text-align: center;
+    font-size: 30px;
+}
+
+/* --- meet the team section --- */
+
+.team {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #B0C985;
+    align-items: center;
+}
+
+a {
+    color: #E07E62;
+}
+
+a:hover {
+    color: #F8C6B3;
+    text-decoration: none;
+}
+
+.team .member .member-img {
+    margin: auto;
+    overflow: hidden;
+    border-radius: 5px;
+    background: #B0C985;
+    align-items: center;
+}
+.team .member .member-img {
+    position: relative;
+    overflow: hidden;
+    align-items: center;
+}
+
+.team .member .social {
+    position: absolute;
+    left: 0;
+    bottom: 30px;
+    right: 0;
+    opacity: 0;
+    transition: ease-in-out 0.3s;
+    text-align: center;
+}
+
+.team .member:hover .social {
+    opacity: 1;
+    bottom: 15px;
+}
+
+.team .member .social a {
+    transition: color 0.3s;
+    color: #111111;
+    margin: 0 3px;
+    padding-top: 7px;
+    border-radius: 50px;
+    width: 36px;
+    height: 36px;
+    background: #E07E62;
+    display: inline-block;
+    transition: ease-in-out 0.3s;
+    color: #fff;
+}
+
+.team .member .social a:hover {
+    background: #F8C6B3;
+}
+
+.team .member .social i {
+    font-size: 20px;
+}
+
+.team .member .member-info {
+    padding: 25px 55px;
+}
+
+.team .member .member-info h4 {
+    font-weight: 700;
+    margin-bottom: 5px;
+    font-size: 24px;
+    color: #4C7A2C;
+}
+
+section {
+    padding: 95px 0;
+    overflow: hidden;
+    position: relative;
+}
+
+.section-title {
+    text-align: center;
+    padding-bottom: 30px;
+    position: relative;
+}
+
+.section-title h1 {
+    font-size: 45px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    position: relative;
+    color: #406823;
+}
+
+.section-title h1::after {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 50px;
+    height: 3px;
+    background: #406823;
+    bottom: 0;
+    left: calc(50% - 25px);
+}
