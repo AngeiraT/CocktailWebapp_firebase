@@ -17,113 +17,125 @@ const db = getFirestore(firebaseApp);
 const data = getDatabase(firebaseApp);
 
 
-// Detect authorization state
+// Method to add an event listener to the checkbox.
 
+var checkbox = document.getElementById("myCheckbox");
 
-
-// References
-    var rumbox = document.getElementById('flexRadioDefault2Rum');
-    var vodkabox = document.getElementById("flexRadioDefault1Vodka");
-    var tequilabox = document.getElementById("flexRadioDefault1Tequila");
-    var ginbox = document.getElementById("flexRadioDefault2Gin");
-    var whiskeybox = document.getElementById("flexRadioDefault1Whiskey");
-
-    var insBtn = document.getElementById("Insbtn");
-    var selBtn = document.getElementById("Selbtn");
-    var upBtn = document.getElementById("Upbtn");
-    var delBtn = document.getElementById("Delbtn");
-
-// Insert data function 
-    function InsertData(){
-        const data = getDatabase();
-        set(ref(data, "TheRecipes/" + selector.value),{
-            Rumbox: rumbox.value,
-            Vodkabox: vodkabox.value,
-            Tequilabox: tequilabox.value,
-            Ginbox: ginbox.value,
-            Whiskeybox: whiskeybox.value,
-    })
-    .then(() => {
-        alert("data stored successfully");
-        
-    })
-    .catch((error) => {
-            alert("unsuccessful, error"+error);
-        });
-}
-
-// Select Data
-function SelectData(){
-    const dbref = ref(getDatabase());
-
-    get(child(dbref, "TheRecipes/"+ selector.value)).then((snapshot)=>{
-       if(snapshot.exist()){
-        rumbox.value = snapshot.val().Rumbox;
-        vodkabox.value = snapshot.val().Vodkabox;
-        tequilabox.value = snapshot.val().Tequilabox;
-        ginbox.value = snapshot.val().Ginbox;
-        whiskeybox.value = snapshot.val().Whiskeybox;
-       }
-       else{
-        console.log("No data found");
-       }
-    })
-    .catch((error) => {
-            console.error(error);
-        });
-}
-
-// Update data function
-function UpdateData(){
-    const data = getDatabase();
-    update(ref(data, "TheRecipes/" + rumbox.value),{
-        Rumbox: rumbox.value,
-        Vodkabox: vodkabox.value,
-        Tequilabox: tequilabox.value,
-        Ginbox: ginbox.value,
-        Whiskeybox: whiskeybox.value,
-})
-.then(() => {
-    alert("data updated successfully");
-    
-})
-.catch((error) => {
-        alert("unsuccessful, error"+error);
-    });
-}
-
-// Remove data function
-function DeletetData(){
-    const data = getDatabase();
-    push(ref(data, "TheRecipes/" + selector.value))
-.then(() => {
-    alert("data removed successfully");
-    
-})
-.catch((error) => {
-        alert("unsuccessful, error"+error);
-    });
-}
-
-//Query slelector
-window.onload-function(){
-document.getElementById('formBid').addEventListener('submit',function(e){
-    e.preventDefault();
-    var id=Date.now();  //generating a unqiue id
-    set(ref(db,'TheRecipes/' + id),{
-        flexRadioDefault1Tequila:document.querySelectorAll('input[id="flexRadioDefault1Tequila"]:checked'),
-      
-    });
-    alert('Recipes found');
-    formBid.reset();
+checkbox.addEventListener("change", function() {
+  if (this.checked) {
+    // Checkbox is checked.
+    // Store data to Firebase.
+    database.ref('checkedValue').set(true);
+  } else {
+    // Checkbox is unchecked.
+    // Remove data from Firebase.
+    database.ref('checkedValue').set(false);
+  }
 });
-}
 
-// Assign Events to Btns
-window.onload-function(){
+ // Read data. Retrived data to update the checkbox state
+ var checkbox = document.getElementById("myCheckbox");
 
-insBtn.addEventListener('click', InsertData);
-selBtn.addEventListener('click', SelectData);
-upBtn.addEventListener('click', UpdateData);
-delBtn.addEventListener('click', DeletetData);
-}
+database.ref('checkedValue').once('value', function(snapshot) {
+  var isChecked = snapshot.val();
+
+  checkbox.checked = isChecked;
+});
+
+
+// Retrieve the values of the checked checkboxes from the form and store them in an array.
+const checkboxes = document.querySelectorAll('input[type="radio"]:checked');
+const selectedSpirits = [];
+checkboxes.forEach((checkbox) => {
+  selectedSpirits.push(checkbox.value);
+});
+
+// Store the cocktail recipe in the Firebase database for future reference. You can use a Firebase database write operation to add the cocktail recipe to the database.
+firebase.database().ref('cocktails').push({
+    name: recipeName,
+    ingredients: selectedSpirits,
+    instructions: recipeInstructions
+  });
+
+    
+    const saveButton = document.querySelector('#save-button');
+  saveButton.addEventListener('click', () => {
+    // Save the cocktail recipe to the database
+    firebase.database().ref('cocktails').push({
+      name: recipeName,
+      ingredients: selectedSpirits,
+      instructions: recipeInstructions
+    });
+  
+    // Update the UI to let the user know that the recipe has been saved
+    const message = document.createElement('p');
+    message.textContent = 'Cocktail recipe saved!';
+    document.body.appendChild(message);
+  });
+  
+ // How to store spirits
+ // Initialize Firebase
+var firebaseConfig = {
+    // Your Firebase project configuration
+  };
+  
+  firebase.initializeApp(firebaseConfig);
+  
+  // Get a reference to the Firebase Realtime Database
+  var database = firebase.database();
+  
+  // Listen to changes in the form
+  var form = document.querySelector('#cocktail-form');
+  form.addEventListener('submit', function(event) {
+    event.preventDefault();
+    // Get the selected spirit values
+    var spirits = [];
+    var checkboxes = form.querySelectorAll('input[name="spirit"]:checked').value;
+    for (var i = 0; i < checkboxes.length; i++) {
+      if (checkboxes[i].checked) {
+        spirits.push(checkboxes[i].value);
+      }
+    }
+    // Store the selected spirits in Firebase
+    var recipeRef = database.ref('cocktail-recipes').push();
+    recipeRef.set({
+      spirits: spirits
+    });
+  });
+
+  const functions = require('firebase-functions');
+  const admin = require('firebase-admin');
+  const axios = require('axios');
+  
+  admin.initializeApp();
+  
+  exports.generateCocktailRecipe = functions.database.ref('cocktail-recipes/{recipeId}/spirits')
+    .onWrite(async (change, context) => {
+      // Get the selected spirits from the database
+      const recipeId = context.params.recipeId;
+      const spirits = change.after.val();
+      // Call the cocktail recipe API
+      const response = await axios.get(`https://example.com/recipes?spirits=${spirits.join(',')}`);
+      const recipe = response.data;
+      // Store the generated recipe in the database
+      const recipeRef = admin.database().ref(`cocktail-recipes/${recipeId}`);
+      recipeRef.update({
+        recipe: recipe
+      });
+    });
+  
+
+  
+  
+  
+  
+  const form = document.querySelector('form');
+  const database = firebase.database();
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const checkedSpirit = document.querySelector('input[name="spirit"]:checked').value;
+    database.ref('selectedSpirit').set(checkedSpirit);
+    // generate a cocktail recipe based on the selected spirit and store it in Firebase as well
+  });
+  
+
